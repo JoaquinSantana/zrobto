@@ -21,6 +21,7 @@ gem 'sass-rails', '~> 4.0.2'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'sprockets', '2.11.0'
 gem 'devise'
+gem 'simple_form'
 
 group :development do
   gem 'foreman'
