@@ -14,6 +14,6 @@ feature 'user add task' do
 		visit new_task_path
 
 		expect{ click_button("Save") }.to_not change(Task, :count).by(1)
-		expect(page).to have_content("New task")
+		expect(page).to have_content("New Task")
 	end
 end
