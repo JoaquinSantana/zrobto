@@ -3,6 +3,8 @@ require 'spec_helper'
 feature 'user edit task' do
 	scenario 'with valid data' do
 		task = create(:task)
+		user = create(:user)
+		sign_in(user)
 		visit edit_task_path(task)
 
 		fill_in("Name", with: "Nowe imie")
@@ -23,4 +25,11 @@ feature 'user edit task' do
 
 		expect(page).to have_content("Edit Task")
 	end
+end
+
+def sign_in(user, opt={})
+	visit new_user_session_path
+	fill_in("Email", with: user.email)
+	fill_in("Password", with: (opt[:password] || user.password))
+	click_button("Sign in")
 end
