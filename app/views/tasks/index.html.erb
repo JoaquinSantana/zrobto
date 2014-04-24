@@ -8,22 +8,24 @@
 		    <ul class="list-group">
 			  <li class="list-group-item">
 			  	<div class="panel-heading"><b><%= task.name %></b></div>
-			  	<div class="panel-body">
+			  	<div class="panel-body well">
 				  	<%= task.description %>
 					<%= task.link %>
+					<p>Utworzony przez: <%= task.user.email %></p>
 				</div>
 			  </li>
-		 		<li class="list-group-item">
-		 			<div class="btn-group btn-group-sm">
-		          		<%= link_to 'Edit', edit_task_path(task), class: 'btn btn-success' %>
-		          		<%= link_to 'Usuń', task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
-					  	<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
-					</div>
-
-		       </li>
+			  	<% if ( current_user == task.user ) %>
+			 		<li class="list-group-item">
+			 			<div class="btn-group btn-group-sm">
+			          		<%= link_to 'Edit', edit_task_path(task), class: 'btn btn-success' %>
+			          		<%= link_to 'Usuń', task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
+						</div>
+			       	</li>
+		       	<% end %>
 			</ul>
 		</div>
 	    <% end %>
+		<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
 	    <% if @tasks.empty? %>
 	 		<li class="list-group-item">
 	 			Nie masz jeszcze żadnego zadania. Dodaj nowe zadanie 

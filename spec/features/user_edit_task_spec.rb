@@ -10,10 +10,11 @@ feature 'guest' do
 		expect(page).to_not have_content("Task was successfully updated.")
 	end
 end
+
 feature 'user edit task' do
 	scenario 'with valid data' do
-		task = create(:task)
-		user = create(:user)
+		user = create(:user_with_tasks)
+		task = user.tasks.first
 		sign_in(user)
 		visit edit_task_path(task)
 
@@ -27,8 +28,8 @@ feature 'user edit task' do
 	end
 
 	scenario 'with wrong data' do
-		task = create(:task)
-		user = create(:user)
+		user = create(:user_with_tasks)
+		task = user.tasks.first
 		sign_in(user)
 
 		visit edit_task_path(task)

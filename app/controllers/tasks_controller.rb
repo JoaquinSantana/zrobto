@@ -1,6 +1,7 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  #before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
+  before_action :correct_user, only: [:destroy, :edit, :update]
 
 
   # GET /tasks
@@ -23,7 +24,8 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
-    @task = Task.new(task_params)
+
+    @task = current_user.tasks.build(task_params)
 
     if @task.save
       redirect_to tasks_url, notice: 'Task was successfully created.'
@@ -56,5 +58,10 @@ class TasksController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def task_params
       params.require(:task).permit(:name, :description, :link)
+    end
+
+    def correct_user
+      @task = current_user.tasks.find_by(id: params[:id])
+      redirect_to root_url if @task.nil?
     end
 end

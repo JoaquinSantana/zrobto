@@ -11,8 +11,7 @@ end
 
 feature 'user deleted task' do
 	scenario 'with access' do
-		task = create(:task)
-		user = create(:user)
+		user = create(:user_with_tasks)
 		sign_in(user)
 		
 		visit tasks_path
