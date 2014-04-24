@@ -1,5 +1,15 @@
 require 'spec_helper'
 
+feature 'guest' do
+	scenario 'cant edit task' do
+		task = create(:task)
+		visit edit_task_path(task)
+
+		expect(current_path).to eq new_user_session_path
+		expect(page).to have_content("Sign in")
+		expect(page).to_not have_content("Task was successfully updated.")
+	end
+end
 feature 'user edit task' do
 	scenario 'with valid data' do
 		task = create(:task)
@@ -18,6 +28,9 @@ feature 'user edit task' do
 
 	scenario 'with wrong data' do
 		task = create(:task)
+		user = create(:user)
+		sign_in(user)
+
 		visit edit_task_path(task)
 
 		fill_in("Description", with: '')
@@ -25,11 +38,4 @@ feature 'user edit task' do
 
 		expect(page).to have_content("Edit Task")
 	end
-end
-
-def sign_in(user, opt={})
-	visit new_user_session_path
-	fill_in("Email", with: user.email)
-	fill_in("Password", with: (opt[:password] || user.password))
-	click_button("Sign in")
 end

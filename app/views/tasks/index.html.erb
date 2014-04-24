@@ -24,6 +24,14 @@
 			</ul>
 		</div>
 	    <% end %>
+	    <% if @tasks.empty? %>
+	 		<li class="list-group-item">
+	 			Nie masz jeszcze żadnego zadania. Dodaj nowe zadanie 
+	 			<div class="btn-group btn-group-sm">
+	          		<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
+				</div>
+	       	</li>
+       	<% end %>
 	</div>
 	</div>
 
