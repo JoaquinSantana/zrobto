@@ -5,4 +5,9 @@ class Task < ActiveRecord::Base
 	validates :user_id, presence: true
 
 	belongs_to :user
+
+
+	def zakonczone?
+		!completed.blank?
+	end
 end
