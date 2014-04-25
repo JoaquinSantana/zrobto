@@ -18,4 +18,5 @@ feature 'user deleted task' do
 
 		expect{ click_link("Usuń") }.to change(Task, :count).by(-1)
 	end
+
 end

@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   #before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index]
-  before_action :correct_user, only: [:destroy, :edit, :update]
+  before_action :correct_user, only: [:destroy, :edit, :update, :gotowe]
 
 
   # GET /tasks
@@ -47,6 +47,13 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     redirect_to tasks_url, notice: 'Task was successfully destroyed.'
+  end
+
+  def gotowe
+    @task = current_user.tasks.find(params[:id])
+    @task.update_attribute(:completed, Time.now)
+    redirect_to root_url
+    flash[:success] = "Zadanie zostało wykonane"
   end
 
   private
