@@ -1,59 +1,22 @@
 <%= content_for(:title, "Zrob_to APP") %>
 <% if user_signed_in? %>
+<p><%= link_to "Nowe zadanie", new_task_path, class: 'btn btn-primary' %></p>
 	<div class="panel panel-default">
 	  <div class="panel-heading"><h3><b>Wszystkie zadania</b></h3></div>
-	  <div class="panel-body">
-	    <% @tasks.each do |task| %>
-	    <div class="panel panel-default">
-		    <ul class="list-group">
-			  <li class="list-group-item">
-			  	<div class="panel-heading"><b><%= task.name %></b></div>
-			  	<div class="panel-body well">
-			  		<div class="row">
-			  			<div class="col-md-4">
-				  			<%= task.description %>
-							<%= task.link %>
-			  			</div>
-			  			<div class="col-md-4">
-			  				<% if task.completed %>
-			  					<i class="fa fa-check fa-5x pull-right"></i>
-			  				<% end %>
-			  			</div>
-			  		</div>
-
-					<p>Utworzony przez: <%= task.user.email %></p>
-				</div>
-			  </li>
-			  	<% if ( current_user == task.user ) %>
-			 		<li class="list-group-item">
-			 			<div class="btn-group btn-group-sm">
-			          		<%= link_to 'Edit', edit_task_path(task), class: 'btn btn-success' %>
-			          		<%= link_to 'Usuń', task, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success' %>
-			          		<% unless task.zakonczone? %>
-			          			<%= link_to gotowe_task_path(task), method: :patch, class: 'btn btn-danger' do %>
-			          				<i class="fa fa-check-square-o"> Zrobione?</i>
-			          			<% end %>
-			          		<% else %>
-			          		<br>
-								<h3><span class="label label-primary">Zadanie wykonane !</span></h3>
-			          		<% end %>
-						</div>
-			       	</li>
-		       	<% end %>
-			</ul>
+	 	 	<div class="panel-body">
+				<%= render @tasks %>
+			</div>
 		</div>
-	    <% end %>
-		<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
-	    <% if @tasks.empty? %>
-	 		<li class="list-group-item">
-	 			Nie masz jeszcze żadnego zadania. Dodaj nowe zadanie 
-	 			<div class="btn-group btn-group-sm">
-	          		<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
-				</div>
-	       	</li>
-       	<% end %>
 	</div>
-	</div>
+
+	<% if @tasks.empty? %>
+		<li class="list-group-item">
+			Nie masz jeszcze żadnego zadania. Dodaj nowe zadanie 
+			<div class="btn-group btn-group-sm">
+	  			<%= link_to 'New Task', new_task_path, class: 'btn btn-success' %>
+			</div>
+		</li>
+	<% end %>
 
 <% else %>
 
@@ -80,8 +43,8 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, delectus.</div>
+		<div class="col-md-12">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, delectus.
+		</div>
 	</div>
-
-
 <% end %>

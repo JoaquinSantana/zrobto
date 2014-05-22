@@ -13,10 +13,22 @@
           <li><%= link_to "Zarejestruj", new_user_registration_path %></li>
       </ul>
     <% else %>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Do zrobienia</a></li>
-        <li><a href="#">Wykonane</a></li> 
+
+        <li class="<%= is_active?(tasks_path) %>">
+          <%= link_to "Wszystkie zadania (#{Task.count})", tasks_path %>
+        </li>
+
+        <li class="<%= is_active?(nieukonczone_tasks_path) %>">
+          <%= link_to "Do zrobienia (#{Task.nieukonczone.count})", nieukonczone_tasks_path %>
+        </li>
+
+        <li class="<%= is_active?(ukonczone_tasks_path) %>">
+          <%= link_to "Wykonane (#{Task.ukonczone.count})", ukonczone_tasks_path %>
+        </li>
+
       </ul>
        <ul class="nav navbar-nav navbar-right">   
           <li class="dropdown nav navbar-nav navbar-right">

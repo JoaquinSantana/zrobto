@@ -6,8 +6,12 @@ class Task < ActiveRecord::Base
 
 	belongs_to :user
 
+	scope :nieukonczone, -> { where(completed: nil) }
+	scope :ukonczone, -> { where("completed is NOT NULL") }
+
 
 	def zakonczone?
 		!completed.blank?
 	end
+
 end

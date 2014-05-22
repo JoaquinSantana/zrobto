@@ -13,6 +13,11 @@ def bootstrap_class_for(flash_type)
       else
         flash_type.to_s
     end
-  end
+end
+
+
+def is_active?(link_path)
+  current_page?(link_path) ? "active" : ""
+end
  
 end

@@ -56,6 +56,15 @@ class TasksController < ApplicationController
     flash[:success] = "Zadanie zostało wykonane"
   end
 
+
+  def ukonczone
+    @tasks = Task.ukonczone
+  end
+
+  def nieukonczone
+    @tasks = Task.nieukonczone
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
